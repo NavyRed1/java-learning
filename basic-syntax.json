@@ -1,0 +1,66 @@
+{
+  "topicId": "basic-syntax",
+  "whyItMatters": "Every Java program, from a ten-line exercise to a banking system, is built from the same few structural pieces: classes, methods, statements and blocks. When you can read that structure at a glance, compiler errors stop looking like noise and start pointing at specific lines. Syntax is also the vocabulary every later topic assumes.",
+  "mentalModel": "Think of a Java file as nested boxes. A class is the outer box. Methods are boxes inside it. Statements are the individual instructions inside a method, each closed with a semicolon. Curly braces mark where a box opens and closes, so every `{` needs a matching `}`.\n\nThe JVM does not run the whole file at once. It starts at exactly one place, the `main` method, and runs its statements from top to bottom.",
+  "syntaxReference": "class       [modifiers] class Name { members }\nmethod      [modifiers] returnType name(parameters) { statements }\nstatement   expression ;\nblock       { statement statement ... }\ncomment     // to end of line     /* across lines */     /** documentation */\nidentifier  letters, digits, _ and $; cannot start with a digit; case-sensitive\nentry point public static void main(String[] args)",
+  "syntaxLanguage": "text",
+  "commonMistakes": [
+    {
+      "mistake": "Forgetting the semicolon at the end of a statement.",
+      "fix": "The compiler reports `';' expected`, often on the line after the real mistake. End every statement with `;`."
+    },
+    {
+      "mistake": "Naming the file differently from the public class.",
+      "fix": "`public class Greeter` must be in `Greeter.java`, with identical capitalization."
+    },
+    {
+      "mistake": "Writing `system.out.println` in lowercase.",
+      "fix": "Java is case-sensitive. The class is `System`; the compiler says `package system does not exist`."
+    },
+    {
+      "mistake": "Leaving a brace unclosed.",
+      "fix": "`reached end of file while parsing` means a `{` was never closed. Indent consistently so mismatches are easy to see."
+    },
+    {
+      "mistake": "Changing the `main` signature, for example `public static void main()`.",
+      "fix": "Without a `String[]` parameter the launcher cannot use it as the entry point. Keep the exact signature."
+    }
+  ],
+  "comparisons": [
+    {
+      "with": "lifecycle-of-a-program",
+      "summary": "Syntax rules are checked by `javac` before anything runs. The program lifecycle explains what happens after your syntax is accepted: loading, verification and execution by the JVM."
+    }
+  ],
+  "lineByLine": [
+    {
+      "exampleId": "ex-basic-syntax-greeter",
+      "notes": [
+        {
+          "lines": "1",
+          "text": "Declares a class named `Greeter`. Because it is `public`, the file must be named `Greeter.java`."
+        },
+        {
+          "lines": "3",
+          "text": "A comment. The compiler ignores everything from `//` to the end of the line."
+        },
+        {
+          "lines": "4",
+          "text": "The entry point. `public` lets the JVM call it, `static` means no object is needed first, `void` means it returns nothing, and `String[] args` receives command-line arguments."
+        },
+        {
+          "lines": "5-6",
+          "text": "Two variable declarations: a type, a name, `=`, a value, and a closing semicolon."
+        },
+        {
+          "lines": "8-9",
+          "text": "`System.out.println(...)` prints one line. The `+` joins text and other values into a single string."
+        },
+        {
+          "lines": "10-11",
+          "text": "Closing braces. The first ends `main`, the second ends the class; each matches an opening brace."
+        }
+      ]
+    }
+  ]
+}
