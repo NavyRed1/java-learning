@@ -1,0 +1,485 @@
+{
+  "source": "Supplied Sagar implementation source plus screenshot, validated by project owner",
+  "usage": "Minimum product baseline. Names, tags, counts and mechanics only; descriptions, questions and copy are not reproduced. All shipped text is original.",
+  "phases": [
+    {
+      "id": "p1",
+      "name": "Java Basics",
+      "weeks": "1-2"
+    },
+    {
+      "id": "p2",
+      "name": "Object-Oriented Programming",
+      "weeks": "3-5"
+    },
+    {
+      "id": "p3",
+      "name": "Core Java APIs",
+      "weeks": "6-8"
+    },
+    {
+      "id": "p4",
+      "name": "Modern Java & Beyond",
+      "weeks": "9-12"
+    }
+  ],
+  "topics": [
+    {
+      "n": 1,
+      "name": "Install JDK & IntelliJ IDEA",
+      "phase": "p1",
+      "tag": "easy",
+      "covers": {
+        "milestone": "m01",
+        "topics": [
+          "lifecycle-of-a-program"
+        ],
+        "supporting": "JDK install and IDE setup guide"
+      }
+    },
+    {
+      "n": 2,
+      "name": "Variables & Data Types",
+      "phase": "p1",
+      "tag": "easy",
+      "covers": {
+        "milestone": "m02",
+        "topics": [
+          "data-types",
+          "variables-and-scopes"
+        ]
+      }
+    },
+    {
+      "n": 3,
+      "name": "Operators & Expressions",
+      "phase": "p1",
+      "tag": "easy",
+      "covers": {
+        "milestone": "m03",
+        "topics": [
+          "math-operations"
+        ],
+        "supporting": "relational, logical and assignment operators"
+      }
+    },
+    {
+      "n": 4,
+      "name": "Conditionals (if/else, switch)",
+      "phase": "p1",
+      "tag": "easy",
+      "covers": {
+        "milestone": "m04",
+        "topics": [
+          "conditionals"
+        ]
+      }
+    },
+    {
+      "n": 5,
+      "name": "Loops (for, while, do-while)",
+      "phase": "p1",
+      "tag": "easy",
+      "covers": {
+        "milestone": "m04",
+        "topics": [
+          "loops"
+        ]
+      }
+    },
+    {
+      "n": 6,
+      "name": "Methods & Parameters",
+      "phase": "p1",
+      "tag": "easy",
+      "covers": {
+        "milestone": "m05",
+        "topics": [
+          "strings-and-methods",
+          "attributes-and-methods"
+        ],
+        "supporting": "methods, parameters, return values, overloading intro"
+      }
+    },
+    {
+      "n": 7,
+      "name": "Arrays",
+      "phase": "p1",
+      "tag": "easy",
+      "covers": {
+        "milestone": "m06",
+        "topics": [
+          "arrays"
+        ]
+      }
+    },
+    {
+      "n": 8,
+      "name": "Classes & Objects",
+      "phase": "p2",
+      "tag": "medium",
+      "covers": {
+        "milestone": "m07",
+        "topics": [
+          "classes-and-objects"
+        ]
+      }
+    },
+    {
+      "n": 9,
+      "name": "Constructors & this keyword",
+      "phase": "p2",
+      "tag": "medium",
+      "covers": {
+        "milestone": "m08",
+        "topics": [
+          "object-lifecycle"
+        ],
+        "supporting": "constructor chaining and this"
+      }
+    },
+    {
+      "n": 10,
+      "name": "Encapsulation",
+      "phase": "p2",
+      "tag": "medium",
+      "covers": {
+        "milestone": "m09",
+        "topics": [
+          "encapsulation",
+          "access-specifiers"
+        ]
+      }
+    },
+    {
+      "n": 11,
+      "name": "Inheritance & extends",
+      "phase": "p2",
+      "tag": "medium",
+      "covers": {
+        "milestone": "m10",
+        "topics": [
+          "inheritance"
+        ]
+      }
+    },
+    {
+      "n": 12,
+      "name": "Polymorphism",
+      "phase": "p2",
+      "tag": "medium",
+      "covers": {
+        "milestone": "m11",
+        "topics": [
+          "method-overloading-overriding",
+          "static-vs-dynamic-binding"
+        ],
+        "supporting": "upcasting and downcasting"
+      }
+    },
+    {
+      "n": 13,
+      "name": "Interfaces & Abstract Classes",
+      "phase": "p2",
+      "tag": "hard",
+      "covers": {
+        "milestone": "m12",
+        "topics": [
+          "abstraction",
+          "interfaces"
+        ]
+      }
+    },
+    {
+      "n": 14,
+      "name": "Enums",
+      "phase": "p2",
+      "tag": "medium",
+      "covers": {
+        "milestone": "m13",
+        "topics": [
+          "enums"
+        ]
+      }
+    },
+    {
+      "n": 15,
+      "name": "Strings & StringBuilder",
+      "phase": "p3",
+      "tag": "medium",
+      "covers": {
+        "milestone": "m05",
+        "topics": [
+          "strings-and-methods"
+        ],
+        "supporting": "StringBuilder and immutability",
+        "placementNote": "Sagar places this in phase 3; we teach it in phase 1 because strings are needed from the first programs"
+      }
+    },
+    {
+      "n": 16,
+      "name": "ArrayList & LinkedList",
+      "phase": "p3",
+      "tag": "medium",
+      "covers": {
+        "milestone": "m15",
+        "topics": [
+          "array-vs-arraylist"
+        ],
+        "supporting": "LinkedList performance trade-offs"
+      }
+    },
+    {
+      "n": 17,
+      "name": "HashMap & HashSet",
+      "phase": "p3",
+      "tag": "medium",
+      "covers": {
+        "milestone": "m16",
+        "topics": [
+          "map",
+          "set"
+        ],
+        "supporting": "hashing and collisions"
+      }
+    },
+    {
+      "n": 18,
+      "name": "Exception Handling",
+      "phase": "p3",
+      "tag": "medium",
+      "covers": {
+        "milestone": "m17",
+        "topics": [
+          "exception-handling"
+        ]
+      }
+    },
+    {
+      "n": 19,
+      "name": "File I/O basics",
+      "phase": "p3",
+      "tag": "hard",
+      "covers": {
+        "milestone": "m18",
+        "topics": [
+          "io-operations",
+          "file-operations"
+        ]
+      }
+    },
+    {
+      "n": 20,
+      "name": "Generics",
+      "phase": "p3",
+      "tag": "hard",
+      "covers": {
+        "milestone": "m19",
+        "topics": [
+          "generic-collections"
+        ]
+      }
+    },
+    {
+      "n": 21,
+      "name": "Comparable & Comparator",
+      "phase": "p3",
+      "tag": "hard",
+      "covers": {
+        "milestone": "m19",
+        "topics": [
+          "generic-collections"
+        ],
+        "supporting": "natural and custom ordering"
+      }
+    },
+    {
+      "n": 22,
+      "name": "Lambda Expressions",
+      "phase": "p4",
+      "tag": "hard",
+      "covers": {
+        "milestone": "m21",
+        "topics": [
+          "lambda-expressions"
+        ]
+      }
+    },
+    {
+      "n": 23,
+      "name": "Streams API",
+      "phase": "p4",
+      "tag": "hard",
+      "covers": {
+        "milestone": "m22",
+        "topics": [
+          "stream-api"
+        ]
+      }
+    },
+    {
+      "n": 24,
+      "name": "Optional<T>",
+      "phase": "p4",
+      "tag": "hard",
+      "covers": {
+        "milestone": "m21",
+        "topics": [
+          "optionals"
+        ]
+      }
+    },
+    {
+      "n": 25,
+      "name": "Multithreading Basics",
+      "phase": "p4",
+      "tag": "hard",
+      "covers": {
+        "milestone": "m21",
+        "topics": [
+          "threads"
+        ],
+        "placementNote": "Sagar places this in phase 4; owner decision D1 moves Concurrency into our phase 3"
+      }
+    },
+    {
+      "n": 26,
+      "name": "Build a Project",
+      "phase": "p4",
+      "tag": "hard",
+      "covers": {
+        "deliveredBy": "projects",
+        "supporting": "capstone projects delivered by the Projects feature (Prompt 7)"
+      }
+    },
+    {
+      "n": 27,
+      "name": "Intro to Spring Boot",
+      "phase": "p4",
+      "tag": "hard",
+      "covers": {
+        "milestone": "m25",
+        "topics": [
+          "spring-boot"
+        ]
+      }
+    },
+    {
+      "n": 28,
+      "name": "Unit Testing with JUnit",
+      "phase": "p4",
+      "tag": "hard",
+      "covers": {
+        "milestone": "m27",
+        "topics": [
+          "junit"
+        ]
+      }
+    }
+  ],
+  "codeExamples": {
+    "claimed": "10+",
+    "shipped": 6,
+    "labels": [
+      "Hello World",
+      "OOP",
+      "Collections",
+      "Streams",
+      "Exceptions",
+      "Inheritance"
+    ],
+    "requirement": "Ours: at least 10 meaningful examples"
+  },
+  "quiz": {
+    "questions": 10,
+    "formats": [
+      "multiple-choice"
+    ],
+    "subjects": [
+      "class keyword",
+      "integer division",
+      "private access",
+      "ArrayList vs array",
+      "this keyword",
+      "interfaces",
+      "Stream filter",
+      "ArithmeticException",
+      "constructors",
+      "String immutability"
+    ],
+    "feedback": "per-question correct/incorrect with explanation",
+    "score": "x/10 with message tiers at 9, 7, 5",
+    "retry": true,
+    "persisted": false
+  },
+  "progress": {
+    "storageKeys": [
+      "javaRoadmapDone",
+      "javaChecklist"
+    ],
+    "model": "boolean per topic",
+    "overall": "completed/total percent",
+    "currentPhase": "first phase with incomplete topics",
+    "estimatedTimeLeft": "linear: round(12 * (1 - pct)) weeks",
+    "weaknesses": [
+      "timeLeft ignores topic size",
+      "quiz result not persisted",
+      "click on row toggles completion (accidental)",
+      "habits never reset weekly"
+    ]
+  },
+  "resources": {
+    "general": [
+      "MOOC.fi Java Programming",
+      "Tim Buchalka (Udemy)",
+      "Oracle Java Tutorials",
+      "IntelliJ IDEA Community",
+      "Baeldung",
+      "Codecademy Java",
+      "Effective Java (Bloch)",
+      "LeetCode"
+    ],
+    "perPhase": {
+      "p1": 3,
+      "p2": 2,
+      "p3": 2,
+      "p4": 2
+    }
+  },
+  "habits": {
+    "groups": [
+      {
+        "title": "Daily Habits",
+        "items": 4
+      },
+      {
+        "title": "Weekly Goals",
+        "items": 4
+      },
+      {
+        "title": "Project Ideas",
+        "items": 6
+      },
+      {
+        "title": "Before Moving On",
+        "items": 4
+      }
+    ]
+  },
+  "ui": [
+    "sticky nav with section anchors",
+    "mobile hamburger menu",
+    "expandable phase blocks with progress pills",
+    "difficulty tags",
+    "per-phase resource links",
+    "code example tabs with copy button",
+    "external code editor link",
+    "scroll reveal"
+  ],
+  "knownIssues": [
+    "links open in new tab without rel noopener",
+    "syntax highlighting is hand-written spans",
+    "'run it' copy but no execution in page",
+    "examples fewer than claimed"
+  ]
+}

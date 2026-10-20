@@ -1,0 +1,2751 @@
+[
+  {
+    "id": "basic-syntax",
+    "title": "Basic Syntax",
+    "sourceLabel": "Basic Syntax",
+    "group": "basics",
+    "cluster": null,
+    "phase": "p1",
+    "milestone": "m01",
+    "description": "Structure of a Java source file: classes, the main method, statements, blocks, comments and naming conventions.",
+    "objectives": [
+      "Write and compile a minimal class with a main method",
+      "Distinguish statements, blocks and comments",
+      "Apply standard Java naming conventions"
+    ],
+    "subtopics": [
+      {
+        "id": "source-file-structure",
+        "title": "Source file structure",
+        "summary": "One public class per file, and the file name matches it."
+      },
+      {
+        "id": "main-method",
+        "title": "The main method",
+        "summary": "The signature the JVM looks for."
+      },
+      {
+        "id": "statements-and-blocks",
+        "title": "Statements and blocks",
+        "summary": "Semicolons end statements; braces group them."
+      },
+      {
+        "id": "comments",
+        "title": "Comments",
+        "summary": "Line, block and documentation comments."
+      },
+      {
+        "id": "naming-rules",
+        "title": "Identifiers and naming",
+        "summary": "What counts as a valid name, and the usual style."
+      }
+    ],
+    "difficulty": "easy",
+    "estimatedMinutes": 40,
+    "depth": "core",
+    "prerequisites": [],
+    "relatedTopics": [
+      "lifecycle-of-a-program",
+      "data-types"
+    ],
+    "examples": [
+      "ex-basic-syntax-greeter"
+    ],
+    "exercises": [
+      {
+        "id": "write-intro",
+        "title": "Write your own greeting",
+        "prompt": "Create `Intro.java` with a public class `Intro` whose `main` method prints two lines: your name, and the language you want to learn next. Compile and run it from a terminal.",
+        "hints": [
+          "The file name must match the public class name exactly, including capital letters.",
+          "Use two `System.out.println` statements, one per line."
+        ],
+        "checks": [
+          "The file is named Intro.java and the class is Intro",
+          "javac Intro.java finishes without errors",
+          "java Intro prints two lines: your name, then a language"
+        ]
+      },
+      {
+        "id": "break-it",
+        "title": "Break it on purpose",
+        "prompt": "Delete one semicolon from `Intro.java` and compile. Read the error and find the line it reports. Restore the semicolon, then rename the class to `intro` (lowercase) without renaming the file, and compile again. Compare the two errors.",
+        "hints": [
+          "Compiler errors name the file, a line number and a short description.",
+          "The second error says a public class must be declared in a file with a matching name."
+        ],
+        "checks": [
+          "I saw a compile error after deleting the semicolon and found its line number",
+          "I saw a different error after renaming the class to lowercase",
+          "I restored the program and it compiles again"
+        ]
+      },
+      {
+        "id": "fix-broken",
+        "title": "Fix the broken program",
+        "prompt": "This program has two syntax errors. Find and fix both by reading, then compile to check yourself.",
+        "hints": [
+          "One statement is missing its terminator.",
+          "Count the opening and closing braces."
+        ],
+        "starterCode": "public class Broken {\n    public static void main(String[] args) {\n        System.out.println(\"Fix me\")\n    }",
+        "checks": [
+          "I found the missing semicolon without compiling",
+          "I found the missing closing brace",
+          "javac Broken.java now compiles"
+        ]
+      }
+    ],
+    "quizIds": [
+      "q-basic-syntax-1",
+      "q-basic-syntax-2",
+      "q-basic-syntax-3",
+      "q-basic-syntax-4"
+    ],
+    "resources": [
+      "res-oracle-getting-started",
+      "res-devjava-learn",
+      "res-mooc-java",
+      "res-jls-lexical"
+    ],
+    "contentStatus": "authored",
+    "order": 1
+  },
+  {
+    "id": "lifecycle-of-a-program",
+    "title": "Lifecycle of a Program",
+    "sourceLabel": "Lifecycle of a Program",
+    "group": "basics",
+    "cluster": null,
+    "phase": "p1",
+    "milestone": "m01",
+    "description": "How source becomes a running program: javac produces bytecode, the JVM loads, verifies and executes it; how JDK, JRE and JVM relate; setting up a JDK and IDE.",
+    "objectives": [
+      "Explain compile-time versus run-time steps",
+      "Differentiate JDK, JRE and JVM",
+      "Install a JDK and compile and run a program from the command line and an IDE"
+    ],
+    "subtopics": [
+      {
+        "id": "source-to-bytecode",
+        "title": "Source to bytecode",
+        "summary": "What javac produces and why .class files exist."
+      },
+      {
+        "id": "jdk-jre-jvm",
+        "title": "JDK, JRE and JVM",
+        "summary": "Which piece does what."
+      },
+      {
+        "id": "running-programs",
+        "title": "Running a program",
+        "summary": "The java launcher, class names and source-file mode."
+      },
+      {
+        "id": "compile-vs-runtime-errors",
+        "title": "Compile-time and run-time errors",
+        "summary": "Telling the two stages apart."
+      },
+      {
+        "id": "toolchain-setup",
+        "title": "Installing a JDK",
+        "summary": "Setting up and checking your tools."
+      }
+    ],
+    "difficulty": "easy",
+    "estimatedMinutes": 50,
+    "depth": "core",
+    "prerequisites": [
+      "basic-syntax"
+    ],
+    "relatedTopics": [
+      "packages",
+      "java-memory-model"
+    ],
+    "examples": [
+      "ex-lifecycle-shell",
+      "ex-lifecycle-divide"
+    ],
+    "exercises": [
+      {
+        "id": "compile-and-run",
+        "title": "Compile and run from a terminal",
+        "prompt": "Save the `Greeter` program from the Code tab as `Greeter.java`. In that folder run `javac Greeter.java`, list the folder, then run `java Greeter`. Write down which new file appeared and which command created it.",
+        "hints": [
+          "If `javac` is not found, you installed a runtime without the compiler. Install a JDK.",
+          "Use the class name, not the file name, with `java`."
+        ],
+        "checks": [
+          "javac created Greeter.class next to Greeter.java",
+          "java Greeter prints both lines",
+          "I can say which command made the .class file"
+        ]
+      },
+      {
+        "id": "two-kinds-of-error",
+        "title": "One compile-time error, one run-time error",
+        "prompt": "Create a program that fails to compile (for example, misspell `System`) and one that compiles but fails when run (for example, the `Divide` program). For each, note which command printed the error and what the message looked like.",
+        "hints": [
+          "Compile-time errors appear when you run `javac`, before any program output.",
+          "Run-time errors appear after compilation succeeds, when you run `java`."
+        ],
+        "checks": [
+          "The misspelled System failed at javac, before anything ran",
+          "Divide compiled but failed when run with java",
+          "I can explain why the compiler could not see the second error"
+        ]
+      },
+      {
+        "id": "source-file-mode",
+        "title": "Try source-file mode",
+        "prompt": "Delete `Greeter.class`, then run `java Greeter.java`. Check the folder afterward. Is there a new `Greeter.class`? What does that tell you about where the compiled code went?",
+        "hints": [
+          "Source-file mode compiles in memory.",
+          "It suits one-file programs but produces no class files to distribute."
+        ],
+        "checks": [
+          "java Greeter.java ran the program",
+          "No new Greeter.class appeared afterward",
+          "I can explain where the compiled code went"
+        ]
+      }
+    ],
+    "quizIds": [
+      "q-lifecycle-1",
+      "q-lifecycle-2",
+      "q-lifecycle-3",
+      "q-lifecycle-4"
+    ],
+    "resources": [
+      "res-oracle-getting-started",
+      "res-devjava-learn",
+      "res-jvms"
+    ],
+    "contentStatus": "authored",
+    "order": 2
+  },
+  {
+    "id": "data-types",
+    "title": "Data Types",
+    "sourceLabel": "Data Types",
+    "group": "basics",
+    "cluster": null,
+    "phase": "p1",
+    "milestone": "m02",
+    "description": "Primitive and reference types, their sizes and ranges, default values and literals.",
+    "objectives": [
+      "List the eight primitive types and their ranges",
+      "Contrast primitives with reference types",
+      "Choose an appropriate type for a value"
+    ],
+    "subtopics": [],
+    "difficulty": "easy",
+    "estimatedMinutes": 60,
+    "depth": "core",
+    "prerequisites": [
+      "basic-syntax"
+    ],
+    "relatedTopics": [
+      "type-casting",
+      "variables-and-scopes"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 3
+  },
+  {
+    "id": "variables-and-scopes",
+    "title": "Variables and Scopes",
+    "sourceLabel": "Variables and Scopes",
+    "group": "basics",
+    "cluster": null,
+    "phase": "p1",
+    "milestone": "m02",
+    "description": "Declaring, initializing and naming variables, and where each one is visible and for how long.",
+    "objectives": [
+      "Declare and initialize local variables, including var",
+      "Predict visibility across block, method and class scope",
+      "Explain variable shadowing"
+    ],
+    "subtopics": [],
+    "difficulty": "easy",
+    "estimatedMinutes": 45,
+    "depth": "core",
+    "prerequisites": [
+      "data-types"
+    ],
+    "relatedTopics": [
+      "final-keyword",
+      "static-keyword"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 4
+  },
+  {
+    "id": "type-casting",
+    "title": "Type Casting",
+    "sourceLabel": "Type Casting",
+    "group": "basics",
+    "cluster": null,
+    "phase": "p1",
+    "milestone": "m02",
+    "description": "Widening and narrowing conversions, implicit promotion in expressions, and casting between reference types.",
+    "objectives": [
+      "Predict implicit widening in expressions",
+      "Perform narrowing casts and anticipate data loss",
+      "Use instanceof before a reference cast"
+    ],
+    "subtopics": [],
+    "difficulty": "easy",
+    "estimatedMinutes": 40,
+    "depth": "core",
+    "prerequisites": [
+      "data-types",
+      "variables-and-scopes"
+    ],
+    "relatedTopics": [
+      "math-operations",
+      "inheritance"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 5
+  },
+  {
+    "id": "math-operations",
+    "title": "Math Operations",
+    "sourceLabel": "Math Operations",
+    "group": "basics",
+    "cluster": null,
+    "phase": "p1",
+    "milestone": "m03",
+    "description": "Arithmetic, compound, relational and logical operators, precedence, integer versus floating-point division, overflow and the Math class.",
+    "objectives": [
+      "Evaluate expressions using operator precedence",
+      "Avoid integer-division and overflow surprises",
+      "Use Math methods for rounding, powers and roots"
+    ],
+    "subtopics": [],
+    "difficulty": "easy",
+    "estimatedMinutes": 60,
+    "depth": "core",
+    "prerequisites": [
+      "data-types",
+      "type-casting"
+    ],
+    "relatedTopics": [
+      "conditionals"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 6
+  },
+  {
+    "id": "conditionals",
+    "title": "Conditionals",
+    "sourceLabel": "Conditionals",
+    "group": "basics",
+    "cluster": null,
+    "phase": "p1",
+    "milestone": "m04",
+    "description": "Branching with if/else, the ternary operator, switch statements and switch expressions.",
+    "objectives": [
+      "Write if/else chains and nested conditions",
+      "Choose between switch statements and switch expressions",
+      "Use boolean logic and short-circuiting correctly"
+    ],
+    "subtopics": [],
+    "difficulty": "easy",
+    "estimatedMinutes": 50,
+    "depth": "core",
+    "prerequisites": [
+      "variables-and-scopes",
+      "math-operations"
+    ],
+    "relatedTopics": [
+      "loops",
+      "enums"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 7
+  },
+  {
+    "id": "loops",
+    "title": "Loops",
+    "sourceLabel": "Loops",
+    "group": "basics",
+    "cluster": null,
+    "phase": "p1",
+    "milestone": "m04",
+    "description": "Repetition with for, enhanced for, while and do-while, plus break, continue and labeled loops.",
+    "objectives": [
+      "Choose the right loop for a task",
+      "Control iteration with break and continue",
+      "Avoid off-by-one and infinite-loop errors"
+    ],
+    "subtopics": [],
+    "difficulty": "easy",
+    "estimatedMinutes": 55,
+    "depth": "core",
+    "prerequisites": [
+      "conditionals"
+    ],
+    "relatedTopics": [
+      "arrays",
+      "iterator"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 8
+  },
+  {
+    "id": "strings-and-methods",
+    "title": "Strings and Methods",
+    "sourceLabel": "Strings and Methods",
+    "group": "basics",
+    "cluster": null,
+    "phase": "p1",
+    "milestone": "m05",
+    "description": "Working with String, immutability, comparison and StringBuilder; defining methods with parameters and return values.",
+    "objectives": [
+      "Use common String methods for searching and slicing",
+      "Explain string immutability and when to use StringBuilder",
+      "Define and call methods with parameters and return values"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 90,
+    "depth": "core",
+    "prerequisites": [
+      "data-types",
+      "variables-and-scopes",
+      "loops"
+    ],
+    "relatedTopics": [
+      "regular-expressions",
+      "attributes-and-methods"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 9
+  },
+  {
+    "id": "arrays",
+    "title": "Arrays",
+    "sourceLabel": "Arrays",
+    "group": "basics",
+    "cluster": null,
+    "phase": "p1",
+    "milestone": "m06",
+    "description": "Fixed-size, zero-indexed sequences of one type: declaring, initializing, iterating, multi-dimensional arrays and the Arrays utility class.",
+    "objectives": [
+      "Declare, initialize and traverse arrays",
+      "Work with two-dimensional arrays",
+      "Use Arrays.sort, copyOf and toString"
+    ],
+    "subtopics": [],
+    "difficulty": "easy",
+    "estimatedMinutes": 60,
+    "depth": "core",
+    "prerequisites": [
+      "data-types",
+      "loops"
+    ],
+    "relatedTopics": [
+      "array-vs-arraylist"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 10
+  },
+  {
+    "id": "basics-of-oop",
+    "title": "Basics of OOP",
+    "sourceLabel": "Basics of OOP",
+    "group": "basics",
+    "cluster": null,
+    "phase": "p1",
+    "milestone": "m06",
+    "description": "The object-oriented model: objects bundle state and behavior, classes are blueprints, and the four pillars frame the rest of the OOP group.",
+    "objectives": [
+      "Describe objects, classes and messages between objects",
+      "Name the four pillars of OOP",
+      "Sketch a real-world thing as a class"
+    ],
+    "subtopics": [],
+    "difficulty": "easy",
+    "estimatedMinutes": 45,
+    "depth": "core",
+    "prerequisites": [
+      "strings-and-methods",
+      "arrays"
+    ],
+    "relatedTopics": [
+      "classes-and-objects",
+      "encapsulation"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 11
+  },
+  {
+    "id": "classes-and-objects",
+    "title": "Classes and Objects",
+    "sourceLabel": "Classes and Objects",
+    "group": "oop",
+    "cluster": "Basics of OOP",
+    "phase": "p2",
+    "milestone": "m07",
+    "description": "Declaring a class, creating instances with new, and the difference between a class, an object and a reference.",
+    "objectives": [
+      "Declare a class with fields and a constructor",
+      "Create and use several instances",
+      "Explain reference variables versus objects"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 75,
+    "depth": "core",
+    "prerequisites": [
+      "basics-of-oop"
+    ],
+    "relatedTopics": [
+      "attributes-and-methods",
+      "object-lifecycle"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 12
+  },
+  {
+    "id": "attributes-and-methods",
+    "title": "Attributes and Methods",
+    "sourceLabel": "Attributes and Methods",
+    "group": "oop",
+    "cluster": "Basics of OOP",
+    "phase": "p2",
+    "milestone": "m07",
+    "description": "Instance fields, instance methods and this: how behavior reads and changes an object's state.",
+    "objectives": [
+      "Add fields and methods to a class",
+      "Use this to disambiguate names",
+      "Distinguish fields from local variables"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 70,
+    "depth": "core",
+    "prerequisites": [
+      "classes-and-objects"
+    ],
+    "relatedTopics": [
+      "static-keyword",
+      "pass-by-value-reference"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 13
+  },
+  {
+    "id": "static-keyword",
+    "title": "Static Keyword",
+    "sourceLabel": "Static Keyword",
+    "group": "oop",
+    "cluster": "Basics of OOP",
+    "phase": "p2",
+    "milestone": "m07",
+    "description": "Static fields, methods and blocks: members that belong to the class rather than to an instance.",
+    "objectives": [
+      "Declare class-level fields and methods",
+      "Explain why static methods cannot use this",
+      "Recognize good and bad uses of static"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 55,
+    "depth": "core",
+    "prerequisites": [
+      "attributes-and-methods"
+    ],
+    "relatedTopics": [
+      "final-keyword",
+      "static-vs-dynamic-binding"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 14
+  },
+  {
+    "id": "method-chaining",
+    "title": "Method Chaining",
+    "sourceLabel": "Method Chaining",
+    "group": "oop",
+    "cluster": "More about OOP",
+    "phase": "p2",
+    "milestone": "m07",
+    "description": "Returning this or a new object from methods so calls read fluently, as in builders and StringBuilder.",
+    "objectives": [
+      "Design methods that return this for fluent calls",
+      "Compare mutable chaining with immutable return-new-object style",
+      "Implement a simple builder"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 40,
+    "depth": "core",
+    "prerequisites": [
+      "attributes-and-methods"
+    ],
+    "relatedTopics": [
+      "encapsulation",
+      "strings-and-methods"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 15
+  },
+  {
+    "id": "object-lifecycle",
+    "title": "Object Lifecycle",
+    "sourceLabel": "Object Lifecycle",
+    "group": "oop",
+    "cluster": "More about OOP",
+    "phase": "p2",
+    "milestone": "m08",
+    "description": "From allocation and constructors through use to unreachability and garbage collection.",
+    "objectives": [
+      "Write overloaded constructors and chain them with this(...)",
+      "Trace initialization order",
+      "Explain when an object becomes eligible for garbage collection"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 70,
+    "depth": "core",
+    "prerequisites": [
+      "classes-and-objects",
+      "attributes-and-methods"
+    ],
+    "relatedTopics": [
+      "initializer-block",
+      "java-memory-model"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 16
+  },
+  {
+    "id": "initializer-block",
+    "title": "Initializer Block",
+    "sourceLabel": "Initializer Block",
+    "group": "oop",
+    "cluster": "More about OOP",
+    "phase": "p2",
+    "milestone": "m08",
+    "description": "Instance and static initializer blocks and their order relative to field initializers and constructors.",
+    "objectives": [
+      "Write instance and static initializer blocks",
+      "Predict initialization order",
+      "Decide when a block beats a constructor"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 35,
+    "depth": "core",
+    "prerequisites": [
+      "object-lifecycle"
+    ],
+    "relatedTopics": [
+      "static-keyword"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 17
+  },
+  {
+    "id": "final-keyword",
+    "title": "Final Keyword",
+    "sourceLabel": "Final Keyword",
+    "group": "oop",
+    "cluster": "Basics of OOP",
+    "phase": "p2",
+    "milestone": "m08",
+    "description": "final variables, parameters, methods and classes: constants, blocking overriding and blocking inheritance.",
+    "objectives": [
+      "Declare constants and blank finals",
+      "Explain final references versus immutable objects",
+      "Apply final to methods and classes deliberately"
+    ],
+    "subtopics": [],
+    "difficulty": "easy",
+    "estimatedMinutes": 40,
+    "depth": "core",
+    "prerequisites": [
+      "variables-and-scopes",
+      "attributes-and-methods"
+    ],
+    "relatedTopics": [
+      "record",
+      "inheritance"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 18
+  },
+  {
+    "id": "pass-by-value-reference",
+    "title": "Pass by Value / Pass by Reference",
+    "sourceLabel": "Pass by Value / Pass by Reference",
+    "group": "oop",
+    "cluster": "More about OOP",
+    "phase": "p2",
+    "milestone": "m08",
+    "description": "How arguments are passed: Java always copies values, and for objects the copied value is a reference.",
+    "objectives": [
+      "Predict the effect of modifying parameters inside a method",
+      "Explain why reassigning a parameter does not affect the caller",
+      "Show how mutating a passed object is visible to the caller"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 45,
+    "depth": "core",
+    "prerequisites": [
+      "attributes-and-methods",
+      "data-types"
+    ],
+    "relatedTopics": [
+      "classes-and-objects",
+      "final-keyword"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 19
+  },
+  {
+    "id": "access-specifiers",
+    "title": "Access Specifiers",
+    "sourceLabel": "Access Specifiers",
+    "group": "oop",
+    "cluster": "Basics of OOP",
+    "phase": "p2",
+    "milestone": "m09",
+    "description": "public, protected, package-private and private: what each exposes and to whom.",
+    "objectives": [
+      "State the visibility of each access level",
+      "Choose the narrowest access that works",
+      "Explain protected across packages"
+    ],
+    "subtopics": [],
+    "difficulty": "easy",
+    "estimatedMinutes": 45,
+    "depth": "core",
+    "prerequisites": [
+      "classes-and-objects"
+    ],
+    "relatedTopics": [
+      "encapsulation",
+      "packages"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 20
+  },
+  {
+    "id": "encapsulation",
+    "title": "Encapsulation",
+    "sourceLabel": "Encapsulation",
+    "group": "oop",
+    "cluster": "More about OOP",
+    "phase": "p2",
+    "milestone": "m09",
+    "description": "Hiding state behind a class's interface with private fields, accessors and invariants.",
+    "objectives": [
+      "Protect fields with private access and accessors",
+      "Enforce invariants in setters and constructors",
+      "Explain why exposing internals harms maintainability"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 60,
+    "depth": "core",
+    "prerequisites": [
+      "access-specifiers",
+      "attributes-and-methods"
+    ],
+    "relatedTopics": [
+      "method-chaining",
+      "record"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 21
+  },
+  {
+    "id": "packages",
+    "title": "Packages",
+    "sourceLabel": "Packages",
+    "group": "oop",
+    "cluster": "Basics of OOP",
+    "phase": "p2",
+    "milestone": "m09",
+    "description": "Organizing classes into packages: naming, imports, directory layout and the default package.",
+    "objectives": [
+      "Place classes in packages and import them",
+      "Match package names to directory layout",
+      "Resolve name clashes between imported classes"
+    ],
+    "subtopics": [],
+    "difficulty": "easy",
+    "estimatedMinutes": 45,
+    "depth": "core",
+    "prerequisites": [
+      "access-specifiers"
+    ],
+    "relatedTopics": [
+      "modules",
+      "maven"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 22
+  },
+  {
+    "id": "nested-classes",
+    "title": "Nested Classes",
+    "sourceLabel": "Nested Classes",
+    "group": "oop",
+    "cluster": "Basics of OOP",
+    "phase": "p2",
+    "milestone": "m09",
+    "description": "Static nested, inner, local and anonymous classes, and when each is appropriate.",
+    "objectives": [
+      "Distinguish the four kinds of nested class",
+      "Access enclosing state from an inner class",
+      "Replace an anonymous class where appropriate"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 60,
+    "depth": "core",
+    "prerequisites": [
+      "classes-and-objects",
+      "access-specifiers"
+    ],
+    "relatedTopics": [
+      "lambda-expressions",
+      "iterator"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 23
+  },
+  {
+    "id": "inheritance",
+    "title": "Inheritance",
+    "sourceLabel": "Inheritance",
+    "group": "oop",
+    "cluster": "More about OOP",
+    "phase": "p2",
+    "milestone": "m10",
+    "description": "Extending classes with extends and super, constructor chaining, the IS-A relationship and the Object class.",
+    "objectives": [
+      "Create a subclass that reuses and extends a superclass",
+      "Call superclass constructors and methods",
+      "Choose between inheritance and composition"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 90,
+    "depth": "core",
+    "prerequisites": [
+      "classes-and-objects",
+      "access-specifiers"
+    ],
+    "relatedTopics": [
+      "abstraction",
+      "type-casting"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 24
+  },
+  {
+    "id": "method-overloading-overriding",
+    "title": "Method Overloading / Overriding",
+    "sourceLabel": "Method Overloading / Overriding",
+    "group": "oop",
+    "cluster": "More about OOP",
+    "phase": "p2",
+    "milestone": "m11",
+    "description": "Overloading (same name, different parameters, chosen at compile time) versus overriding (subclass redefinition, chosen at run time), with @Override.",
+    "objectives": [
+      "Write overloaded methods and predict which is chosen",
+      "Override methods correctly with @Override",
+      "State the rules for overriding signatures and access"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 70,
+    "depth": "core",
+    "prerequisites": [
+      "inheritance",
+      "attributes-and-methods"
+    ],
+    "relatedTopics": [
+      "static-vs-dynamic-binding",
+      "abstraction"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 25
+  },
+  {
+    "id": "static-vs-dynamic-binding",
+    "title": "Static vs Dynamic Binding",
+    "sourceLabel": "Static vs Dynamic Binding",
+    "group": "oop",
+    "cluster": "More about OOP",
+    "phase": "p2",
+    "milestone": "m11",
+    "description": "Which implementation runs: compile-time binding for static, private and final members and for fields; run-time dispatch for overridden instance methods.",
+    "objectives": [
+      "Predict output when reference and object types differ",
+      "Explain why fields and static methods are not polymorphic",
+      "Describe virtual dispatch at a high level"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 55,
+    "depth": "core",
+    "prerequisites": [
+      "method-overloading-overriding",
+      "static-keyword"
+    ],
+    "relatedTopics": [
+      "inheritance",
+      "interfaces"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 26
+  },
+  {
+    "id": "abstraction",
+    "title": "Abstraction",
+    "sourceLabel": "Abstraction",
+    "group": "oop",
+    "cluster": "More about OOP",
+    "phase": "p2",
+    "milestone": "m12",
+    "description": "Abstract classes and methods: sharing structure while leaving specifics to subclasses.",
+    "objectives": [
+      "Declare abstract classes and methods",
+      "Implement an abstract method in a subclass",
+      "Decide between abstract class and interface"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 60,
+    "depth": "core",
+    "prerequisites": [
+      "inheritance",
+      "method-overloading-overriding"
+    ],
+    "relatedTopics": [
+      "interfaces"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 27
+  },
+  {
+    "id": "interfaces",
+    "title": "Interfaces",
+    "sourceLabel": "Interfaces",
+    "group": "oop",
+    "cluster": "More about OOP",
+    "phase": "p2",
+    "milestone": "m12",
+    "description": "Contracts without instance state: abstract, default, static and private methods, multiple implementation and interface-based design.",
+    "objectives": [
+      "Define and implement interfaces",
+      "Use default and static interface methods",
+      "Program to an interface rather than a class"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 90,
+    "depth": "core",
+    "prerequisites": [
+      "abstraction"
+    ],
+    "relatedTopics": [
+      "dependency-injection"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 28
+  },
+  {
+    "id": "enums",
+    "title": "Enums",
+    "sourceLabel": "Enums",
+    "group": "oop",
+    "cluster": "More about OOP",
+    "phase": "p2",
+    "milestone": "m13",
+    "description": "Fixed sets of named constants with fields, constructors and methods; EnumMap and EnumSet; use in switch.",
+    "objectives": [
+      "Declare an enum with fields and methods",
+      "Use enums in switch expressions",
+      "Choose EnumMap or EnumSet appropriately"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 55,
+    "depth": "core",
+    "prerequisites": [
+      "classes-and-objects",
+      "conditionals"
+    ],
+    "relatedTopics": [
+      "record"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 29
+  },
+  {
+    "id": "record",
+    "title": "Record",
+    "sourceLabel": "Record",
+    "group": "oop",
+    "cluster": "More about OOP",
+    "phase": "p2",
+    "milestone": "m13",
+    "description": "Concise immutable data carriers: canonical and compact constructors, generated accessors, equals, hashCode and toString.",
+    "objectives": [
+      "Declare records and use generated members",
+      "Validate in a compact constructor",
+      "Choose between record, class and enum"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 45,
+    "depth": "core",
+    "prerequisites": [
+      "classes-and-objects",
+      "final-keyword"
+    ],
+    "relatedTopics": [
+      "enums",
+      "encapsulation"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 30
+  },
+  {
+    "id": "regular-expressions",
+    "title": "Regular Expressions",
+    "sourceLabel": "Regular Expressions",
+    "group": "advanced",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m14",
+    "description": "Pattern and Matcher: matching, capturing groups, replacing and splitting text with regex syntax.",
+    "objectives": [
+      "Write patterns using classes, quantifiers and groups",
+      "Extract captured groups with Matcher",
+      "Avoid catastrophic backtracking"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 75,
+    "depth": "core",
+    "prerequisites": [
+      "strings-and-methods"
+    ],
+    "relatedTopics": [
+      "file-operations"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 31
+  },
+  {
+    "id": "array-vs-arraylist",
+    "title": "Array vs ArrayList",
+    "sourceLabel": "Array vs ArrayList",
+    "group": "collections",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m15",
+    "description": "Trade-offs between fixed arrays and growable ArrayList, the List interface, and where LinkedList fits.",
+    "objectives": [
+      "Compare arrays and ArrayList for size, speed and API",
+      "Use List operations: add, get, remove, sort",
+      "Choose ArrayList or LinkedList for a workload"
+    ],
+    "subtopics": [],
+    "difficulty": "easy",
+    "estimatedMinutes": 60,
+    "depth": "core",
+    "prerequisites": [
+      "arrays",
+      "interfaces"
+    ],
+    "relatedTopics": [
+      "generic-collections",
+      "iterator"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 32
+  },
+  {
+    "id": "queue",
+    "title": "Queue",
+    "sourceLabel": "Queue",
+    "group": "collections",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m15",
+    "description": "FIFO collections: the Queue interface, offer, poll and peek, LinkedList and PriorityQueue.",
+    "objectives": [
+      "Use offer, poll and peek correctly",
+      "Explain FIFO versus priority ordering",
+      "Pick an implementation for a use case"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 45,
+    "depth": "core",
+    "prerequisites": [
+      "array-vs-arraylist"
+    ],
+    "relatedTopics": [
+      "dequeue",
+      "stack"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 33
+  },
+  {
+    "id": "dequeue",
+    "title": "Dequeue",
+    "sourceLabel": "Dequeue",
+    "group": "collections",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m15",
+    "description": "Double-ended queues through the Deque interface and ArrayDeque, usable as queue or stack.",
+    "objectives": [
+      "Add and remove at both ends",
+      "Use ArrayDeque as a stack and as a queue",
+      "Explain why Deque is preferred over Stack"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 40,
+    "depth": "core",
+    "prerequisites": [
+      "queue"
+    ],
+    "relatedTopics": [
+      "stack"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 34
+  },
+  {
+    "id": "stack",
+    "title": "Stack",
+    "sourceLabel": "Stack",
+    "group": "collections",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m15",
+    "description": "LIFO behavior: the legacy Stack class versus Deque, with typical uses such as undo and expression parsing.",
+    "objectives": [
+      "Apply push, pop and peek",
+      "Solve a balanced-brackets problem with a stack",
+      "Explain why the Stack class is discouraged"
+    ],
+    "subtopics": [],
+    "difficulty": "easy",
+    "estimatedMinutes": 35,
+    "depth": "core",
+    "prerequisites": [
+      "dequeue"
+    ],
+    "relatedTopics": [
+      "queue"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 35
+  },
+  {
+    "id": "set",
+    "title": "Set",
+    "sourceLabel": "Set",
+    "group": "collections",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m16",
+    "description": "Collections of unique elements: HashSet, LinkedHashSet and TreeSet, and the equals/hashCode contract.",
+    "objectives": [
+      "Choose among HashSet, LinkedHashSet and TreeSet",
+      "Implement equals and hashCode consistently",
+      "Use set operations such as union and intersection"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 55,
+    "depth": "core",
+    "prerequisites": [
+      "array-vs-arraylist"
+    ],
+    "relatedTopics": [
+      "map",
+      "generic-collections"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 36
+  },
+  {
+    "id": "map",
+    "title": "Map",
+    "sourceLabel": "Map",
+    "group": "collections",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m16",
+    "description": "Key-value associations: HashMap, LinkedHashMap, TreeMap, iteration, compute methods and hashing basics.",
+    "objectives": [
+      "Store, look up and remove entries",
+      "Iterate keys, values and entries",
+      "Use getOrDefault, merge and computeIfAbsent"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 75,
+    "depth": "core",
+    "prerequisites": [
+      "set"
+    ],
+    "relatedTopics": [
+      "generic-collections"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 37
+  },
+  {
+    "id": "iterator",
+    "title": "Iterator",
+    "sourceLabel": "Iterator",
+    "group": "collections",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m16",
+    "description": "Traversing collections with Iterator and Iterable, fail-fast behavior and safe removal during iteration.",
+    "objectives": [
+      "Traverse with Iterator and enhanced for",
+      "Remove safely during iteration",
+      "Make a custom class Iterable"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 40,
+    "depth": "core",
+    "prerequisites": [
+      "array-vs-arraylist",
+      "interfaces"
+    ],
+    "relatedTopics": [
+      "loops",
+      "nested-classes"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 38
+  },
+  {
+    "id": "exception-handling",
+    "title": "Exception Handling",
+    "sourceLabel": "Exception Handling",
+    "group": "oop",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m17",
+    "description": "try/catch/finally, checked versus unchecked exceptions, throws, try-with-resources and custom exceptions.",
+    "objectives": [
+      "Catch and handle specific exceptions",
+      "Distinguish checked from unchecked exceptions",
+      "Write try-with-resources and custom exceptions"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 90,
+    "depth": "core",
+    "prerequisites": [
+      "inheritance",
+      "conditionals"
+    ],
+    "relatedTopics": [
+      "io-operations",
+      "threads"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 39
+  },
+  {
+    "id": "io-operations",
+    "title": "I/O Operations",
+    "sourceLabel": "I/O Operations",
+    "group": "oop",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m18",
+    "description": "Byte and character streams, readers and writers, buffering, and the Console and Scanner.",
+    "objectives": [
+      "Read and write data with streams and readers",
+      "Apply buffering and close resources safely",
+      "Choose between byte and character streams"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 70,
+    "depth": "core",
+    "prerequisites": [
+      "exception-handling"
+    ],
+    "relatedTopics": [
+      "file-operations",
+      "networking"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 40
+  },
+  {
+    "id": "file-operations",
+    "title": "File Operations",
+    "sourceLabel": "File Operations",
+    "group": "oop",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m18",
+    "description": "Files and paths with java.nio.file: reading, writing, copying, walking directories and file attributes.",
+    "objectives": [
+      "Read and write files with Files and Path",
+      "List and walk directories",
+      "Handle missing files and permissions"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 70,
+    "depth": "core",
+    "prerequisites": [
+      "io-operations"
+    ],
+    "relatedTopics": [
+      "regular-expressions"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 41
+  },
+  {
+    "id": "networking",
+    "title": "Networking",
+    "sourceLabel": "Networking",
+    "group": "advanced",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m18",
+    "description": "Network fundamentals: sockets, URLs, the java.net.http client, and HTTP request/response basics.",
+    "objectives": [
+      "Open a socket connection and exchange data",
+      "Call an HTTP API with HttpClient",
+      "Explain request, response, status codes and headers"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 80,
+    "depth": "core",
+    "prerequisites": [
+      "io-operations",
+      "exception-handling"
+    ],
+    "relatedTopics": [
+      "spring-boot",
+      "rest-assured"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 42
+  },
+  {
+    "id": "generic-collections",
+    "title": "Generic Collections",
+    "sourceLabel": "Generic Collections",
+    "group": "collections",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m19",
+    "description": "Type parameters on classes, interfaces and methods; bounded types, wildcards, type erasure; ordering with Comparable and Comparator.",
+    "objectives": [
+      "Write generic classes and methods",
+      "Explain bounded types and wildcards",
+      "Sort with Comparable and Comparator"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 90,
+    "depth": "core",
+    "prerequisites": [
+      "map",
+      "interfaces"
+    ],
+    "relatedTopics": [
+      "stream-api",
+      "array-vs-arraylist"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 43
+  },
+  {
+    "id": "annotations",
+    "title": "Annotations",
+    "sourceLabel": "Annotations",
+    "group": "oop",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m19",
+    "description": "Built-in annotations, declaring custom annotations, retention and targets, and how frameworks read them.",
+    "objectives": [
+      "Apply standard annotations such as @Override and @Deprecated",
+      "Declare a custom annotation with retention and target",
+      "Read an annotation with reflection"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 55,
+    "depth": "core",
+    "prerequisites": [
+      "classes-and-objects",
+      "interfaces"
+    ],
+    "relatedTopics": [
+      "dependency-injection",
+      "junit"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 44
+  },
+  {
+    "id": "modules",
+    "title": "Modules",
+    "sourceLabel": "Modules",
+    "group": "oop",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m19",
+    "description": "The Java Platform Module System: module-info.java, requires and exports, and strong encapsulation.",
+    "objectives": [
+      "Write a module-info.java",
+      "Export and require packages",
+      "Explain classpath versus module path"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 60,
+    "depth": "core",
+    "prerequisites": [
+      "packages",
+      "access-specifiers"
+    ],
+    "relatedTopics": [
+      "maven"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 45
+  },
+  {
+    "id": "date-and-time",
+    "title": "Date and Time",
+    "sourceLabel": "Date and Time",
+    "group": "advanced",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m20",
+    "description": "The java.time API: LocalDate, LocalDateTime, Instant, ZonedDateTime, Duration, Period and formatting.",
+    "objectives": [
+      "Choose the right java.time type for a task",
+      "Format and parse dates",
+      "Compute durations and periods across time zones"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 70,
+    "depth": "core",
+    "prerequisites": [
+      "classes-and-objects",
+      "strings-and-methods"
+    ],
+    "relatedTopics": [
+      "record",
+      "networking"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 46
+  },
+  {
+    "id": "cryptography",
+    "title": "Cryptography",
+    "sourceLabel": "Cryptography",
+    "group": "advanced",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m20",
+    "description": "The JCA/JCE APIs: secure hashing, message authentication, symmetric and asymmetric encryption, secure random numbers, and why not to invent algorithms.",
+    "objectives": [
+      "Hash data with MessageDigest",
+      "Encrypt and decrypt with a vetted symmetric algorithm",
+      "Generate secure random values and keys"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 80,
+    "depth": "core",
+    "prerequisites": [
+      "exception-handling",
+      "arrays"
+    ],
+    "relatedTopics": [
+      "networking",
+      "io-operations"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 47
+  },
+  {
+    "id": "threads",
+    "title": "Threads",
+    "sourceLabel": "Threads",
+    "group": "concurrency",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m21",
+    "description": "Creating and running threads with Thread and Runnable, executors, join, shared-state hazards and synchronized.",
+    "objectives": [
+      "Start and join threads",
+      "Protect shared state with synchronized",
+      "Use an ExecutorService for task submission"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 100,
+    "depth": "core",
+    "prerequisites": [
+      "interfaces",
+      "exception-handling"
+    ],
+    "relatedTopics": [
+      "virtual-threads",
+      "java-memory-model"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 48
+  },
+  {
+    "id": "virtual-threads",
+    "title": "Virtual Threads",
+    "sourceLabel": "Virtual Threads",
+    "group": "concurrency",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m21",
+    "description": "Lightweight JVM-managed threads (Java 21+) for high-concurrency blocking workloads, and how they differ from platform threads.",
+    "objectives": [
+      "Create virtual threads",
+      "Explain when virtual threads help",
+      "Recognize pinning and other limitations"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 55,
+    "depth": "core",
+    "prerequisites": [
+      "threads"
+    ],
+    "relatedTopics": [
+      "java-memory-model"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 49
+  },
+  {
+    "id": "java-memory-model",
+    "title": "Java Memory Model",
+    "sourceLabel": "Java Memory Model",
+    "group": "concurrency",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m21",
+    "description": "Rules for visibility and ordering of memory operations across threads: happens-before, and why unsynchronized sharing is unsafe.",
+    "objectives": [
+      "Explain happens-before",
+      "Identify a data race",
+      "Name the main synchronization actions that create ordering"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 70,
+    "depth": "core",
+    "prerequisites": [
+      "threads"
+    ],
+    "relatedTopics": [
+      "volatile-keyword",
+      "object-lifecycle"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 50
+  },
+  {
+    "id": "volatile-keyword",
+    "title": "volatile keyword",
+    "sourceLabel": "volatile keyword",
+    "group": "concurrency",
+    "cluster": null,
+    "phase": "p3",
+    "milestone": "m21",
+    "description": "What volatile guarantees (visibility, ordering), what it does not (atomicity), and typical uses.",
+    "objectives": [
+      "Use volatile for a stop flag",
+      "Explain why volatile does not make count++ atomic",
+      "Compare volatile with synchronized and atomics"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 40,
+    "depth": "core",
+    "prerequisites": [
+      "java-memory-model"
+    ],
+    "relatedTopics": [
+      "threads"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 51
+  },
+  {
+    "id": "lambda-expressions",
+    "title": "Lambda Expressions",
+    "sourceLabel": "Lambda Expressions",
+    "group": "oop",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m22",
+    "description": "Anonymous-function syntax, lambdas as implementations of functional interfaces, capturing effectively final variables, and method references.",
+    "objectives": [
+      "Write lambdas and method references",
+      "Explain what a lambda captures",
+      "Replace anonymous classes with lambdas"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 80,
+    "depth": "core",
+    "prerequisites": [
+      "interfaces",
+      "nested-classes"
+    ],
+    "relatedTopics": [
+      "functional-interfaces",
+      "stream-api"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 52
+  },
+  {
+    "id": "functional-interfaces",
+    "title": "Functional Interfaces",
+    "sourceLabel": "Functional Interfaces",
+    "group": "functional",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m22",
+    "description": "Single-abstract-method interfaces and java.util.function: Function, Predicate, Consumer, Supplier and their variants.",
+    "objectives": [
+      "Use the core java.util.function interfaces",
+      "Declare a custom functional interface",
+      "Select the right interface for a task"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 70,
+    "depth": "core",
+    "prerequisites": [
+      "lambda-expressions"
+    ],
+    "relatedTopics": [
+      "high-order-functions",
+      "stream-api"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 53
+  },
+  {
+    "id": "high-order-functions",
+    "title": "High Order Functions",
+    "sourceLabel": "High Order Functions",
+    "group": "functional",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m22",
+    "description": "Functions that accept or return functions, so behavior can be passed as data.",
+    "objectives": [
+      "Write methods that take functions as parameters",
+      "Return functions from methods",
+      "Apply higher-order functions to replace conditional logic"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 55,
+    "depth": "core",
+    "prerequisites": [
+      "functional-interfaces"
+    ],
+    "relatedTopics": [
+      "functional-composition",
+      "stream-api"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 54
+  },
+  {
+    "id": "functional-composition",
+    "title": "Functional Composition",
+    "sourceLabel": "Functional Composition",
+    "group": "functional",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m22",
+    "description": "Combining small functions into pipelines with andThen, compose, and, or, negate and identity.",
+    "objectives": [
+      "Compose Function instances with andThen and compose",
+      "Combine predicates with and, or and negate",
+      "Build a small processing pipeline"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 45,
+    "depth": "core",
+    "prerequisites": [
+      "high-order-functions"
+    ],
+    "relatedTopics": [
+      "functional-interfaces",
+      "stream-api"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 55
+  },
+  {
+    "id": "optionals",
+    "title": "Optionals",
+    "sourceLabel": "Optionals",
+    "group": "oop",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m22",
+    "description": "Optional as an explicit container for a possibly absent value: creation, map, flatMap, orElse, and misuse to avoid.",
+    "objectives": [
+      "Create and transform Optional values",
+      "Avoid null returns with Optional",
+      "Recognize Optional anti-patterns"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 55,
+    "depth": "core",
+    "prerequisites": [
+      "generic-collections",
+      "lambda-expressions"
+    ],
+    "relatedTopics": [
+      "exception-handling",
+      "stream-api"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 56
+  },
+  {
+    "id": "stream-api",
+    "title": "Stream API",
+    "sourceLabel": "Stream API",
+    "group": "functional",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m23",
+    "description": "Declarative pipelines: sources, intermediate and terminal operations, collectors, lazy evaluation and parallel streams.",
+    "objectives": [
+      "Build filter-map-collect pipelines",
+      "Group and aggregate with collectors",
+      "Explain laziness and when not to use parallel streams"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 110,
+    "depth": "core",
+    "prerequisites": [
+      "functional-interfaces",
+      "generic-collections"
+    ],
+    "relatedTopics": [
+      "lambda-expressions",
+      "optionals"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 57
+  },
+  {
+    "id": "maven",
+    "title": "Maven",
+    "sourceLabel": "Maven",
+    "group": "build-tools",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m24",
+    "description": "Declarative builds with pom.xml: lifecycle phases, dependency management, repositories and plugins.",
+    "objectives": [
+      "Create and build a project with Maven",
+      "Declare and scope dependencies",
+      "Run the standard lifecycle phases"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 75,
+    "depth": "core",
+    "prerequisites": [
+      "packages",
+      "lifecycle-of-a-program"
+    ],
+    "relatedTopics": [
+      "gradle",
+      "spring-boot"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 58
+  },
+  {
+    "id": "gradle",
+    "title": "Gradle",
+    "sourceLabel": "Gradle",
+    "group": "build-tools",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m24",
+    "description": "Script-based builds in the Groovy or Kotlin DSL: tasks, dependency configurations, incremental builds and the wrapper.",
+    "objectives": [
+      "Create and build a project with Gradle",
+      "Declare dependencies by configuration",
+      "Write a simple custom task"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 75,
+    "depth": "core",
+    "prerequisites": [
+      "packages",
+      "lifecycle-of-a-program"
+    ],
+    "relatedTopics": [
+      "maven",
+      "spring-boot"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 59
+  },
+  {
+    "id": "bazel",
+    "title": "Bazel",
+    "sourceLabel": "Bazel",
+    "group": "build-tools",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m24",
+    "description": "Hermetic, cacheable builds for large repositories: modules, BUILD files, targets and rules.",
+    "objectives": [
+      "Read a BUILD file",
+      "Build and test a Java target",
+      "Explain why hermetic builds enable caching"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 40,
+    "depth": "survey",
+    "prerequisites": [
+      "packages",
+      "lifecycle-of-a-program"
+    ],
+    "relatedTopics": [
+      "maven",
+      "gradle"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 60
+  },
+  {
+    "id": "javadoc",
+    "title": "Javadoc",
+    "sourceLabel": "Javadoc",
+    "group": "documentation",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m24",
+    "description": "Documenting public APIs with /** */ comments and tags, and generating HTML with the javadoc tool.",
+    "objectives": [
+      "Write Javadoc comments with common tags",
+      "Generate documentation from the command line or build tool",
+      "Document what a method promises, not how it works"
+    ],
+    "subtopics": [],
+    "difficulty": "easy",
+    "estimatedMinutes": 35,
+    "depth": "core",
+    "prerequisites": [
+      "access-specifiers",
+      "packages"
+    ],
+    "relatedTopics": [
+      "maven",
+      "gradle"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 61
+  },
+  {
+    "id": "dependency-injection",
+    "title": "Dependency Injection",
+    "sourceLabel": "Dependency Injection",
+    "group": "oop",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m25",
+    "description": "Supplying an object's collaborators from outside through constructors, interfaces and containers, to decouple and test code.",
+    "objectives": [
+      "Apply constructor injection by hand",
+      "Explain inversion of control",
+      "Describe what a DI container adds"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 65,
+    "depth": "core",
+    "prerequisites": [
+      "interfaces",
+      "annotations"
+    ],
+    "relatedTopics": [
+      "spring-boot",
+      "mockito"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 62
+  },
+  {
+    "id": "spring-boot",
+    "title": "Spring (Spring Boot)",
+    "sourceLabel": "Spring (Spring Boot)",
+    "group": "web-frameworks",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m25",
+    "description": "Opinionated Spring setup: starters, auto-configuration, beans and injection, REST controllers and configuration.",
+    "objectives": [
+      "Create a Spring Boot application with a REST endpoint",
+      "Explain beans and auto-configuration",
+      "Externalize configuration with properties"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 130,
+    "depth": "core",
+    "prerequisites": [
+      "dependency-injection",
+      "annotations",
+      "networking"
+    ],
+    "relatedTopics": [
+      "maven",
+      "spring-data-jpa",
+      "junit"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 63
+  },
+  {
+    "id": "quarkus",
+    "title": "Quarkus",
+    "sourceLabel": "Quarkus",
+    "group": "web-frameworks",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m25",
+    "description": "Cloud-native framework tuned for fast startup and low memory, with build-time processing and native-image support.",
+    "objectives": [
+      "Create a Quarkus REST endpoint",
+      "Explain build-time versus run-time processing",
+      "Compare Quarkus and Spring Boot trade-offs"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 45,
+    "depth": "survey",
+    "prerequisites": [
+      "dependency-injection",
+      "annotations",
+      "networking"
+    ],
+    "relatedTopics": [
+      "spring-boot"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 64
+  },
+  {
+    "id": "javalin",
+    "title": "Javalin",
+    "sourceLabel": "Javalin",
+    "group": "web-frameworks",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m25",
+    "description": "Lightweight web framework: routing, handlers, the context object and minimal setup.",
+    "objectives": [
+      "Define routes with lambda handlers",
+      "Read request data and send responses",
+      "Add simple middleware"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 45,
+    "depth": "survey",
+    "prerequisites": [
+      "lambda-expressions",
+      "networking"
+    ],
+    "relatedTopics": [
+      "spring-boot"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 65
+  },
+  {
+    "id": "play-framework",
+    "title": "Play Framework",
+    "sourceLabel": "Play Framework",
+    "group": "web-frameworks",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m25",
+    "description": "Stateless, asynchronous web framework with MVC conventions and a routes file.",
+    "objectives": [
+      "Define routes and controller actions",
+      "Explain asynchronous request handling",
+      "Compare Play with other Java web frameworks"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 45,
+    "depth": "survey",
+    "prerequisites": [
+      "interfaces",
+      "networking"
+    ],
+    "relatedTopics": [
+      "spring-boot"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 66
+  },
+  {
+    "id": "jdbc",
+    "title": "JDBC",
+    "sourceLabel": "JDBC",
+    "group": "database-access",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m26",
+    "description": "Low-level database access: connections, PreparedStatement, ResultSet, transactions and connection pooling basics (with the SQL needed).",
+    "objectives": [
+      "Run parameterized queries safely",
+      "Map a ResultSet to objects",
+      "Manage a transaction with commit and rollback"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 90,
+    "depth": "core",
+    "prerequisites": [
+      "exception-handling",
+      "interfaces"
+    ],
+    "relatedTopics": [
+      "hibernate"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 67
+  },
+  {
+    "id": "hibernate",
+    "title": "Hibernate",
+    "sourceLabel": "Hibernate",
+    "group": "database-access",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m26",
+    "description": "Object-relational mapping: entities, mappings, sessions, the persistence context, relationships and JPQL.",
+    "objectives": [
+      "Map entities and relationships",
+      "Persist and query through a session",
+      "Explain lazy versus eager loading"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 100,
+    "depth": "core",
+    "prerequisites": [
+      "jdbc",
+      "annotations"
+    ],
+    "relatedTopics": [
+      "spring-data-jpa",
+      "ebean"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 68
+  },
+  {
+    "id": "ebean",
+    "title": "EBean",
+    "sourceLabel": "EBean",
+    "group": "database-access",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m26",
+    "description": "A lighter ORM with a simple API and type-safe query beans.",
+    "objectives": [
+      "Map an entity and save it",
+      "Write a type-safe query",
+      "Compare Ebean with Hibernate"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 40,
+    "depth": "survey",
+    "prerequisites": [
+      "jdbc",
+      "annotations"
+    ],
+    "relatedTopics": [
+      "hibernate"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 69
+  },
+  {
+    "id": "spring-data-jpa",
+    "title": "Spring Data JPA",
+    "sourceLabel": "Spring Data JPA",
+    "group": "database-access",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m26",
+    "description": "Repository abstractions over JPA: derived queries, @Query, pagination and Spring Boot integration.",
+    "objectives": [
+      "Create a repository interface",
+      "Write derived and @Query methods",
+      "Paginate and sort results"
+    ],
+    "subtopics": [],
+    "difficulty": "hard",
+    "estimatedMinutes": 80,
+    "depth": "core",
+    "prerequisites": [
+      "hibernate",
+      "spring-boot"
+    ],
+    "relatedTopics": [
+      "jdbc"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 70
+  },
+  {
+    "id": "junit",
+    "title": "JUnit",
+    "sourceLabel": "JUnit",
+    "group": "testing",
+    "cluster": "Unit Testing",
+    "phase": "p4",
+    "milestone": "m27",
+    "description": "Unit testing with JUnit 5: test lifecycle, assertions, parameterized tests and test organization.",
+    "objectives": [
+      "Write and run unit tests",
+      "Use assertions and assertThrows",
+      "Write parameterized tests"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 80,
+    "depth": "core",
+    "prerequisites": [
+      "exception-handling",
+      "annotations",
+      "classes-and-objects"
+    ],
+    "relatedTopics": [
+      "mockito",
+      "testng"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 71
+  },
+  {
+    "id": "testng",
+    "title": "TestNG",
+    "sourceLabel": "TestNG",
+    "group": "testing",
+    "cluster": "Unit Testing",
+    "phase": "p4",
+    "milestone": "m27",
+    "description": "Alternative testing framework with groups, data providers and XML suites.",
+    "objectives": [
+      "Write TestNG tests with annotations",
+      "Use data providers",
+      "Compare TestNG with JUnit"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 40,
+    "depth": "survey",
+    "prerequisites": [
+      "annotations",
+      "classes-and-objects"
+    ],
+    "relatedTopics": [
+      "junit"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 72
+  },
+  {
+    "id": "mockito",
+    "title": "Mockito",
+    "sourceLabel": "Mockito",
+    "group": "testing",
+    "cluster": "Mocking",
+    "phase": "p4",
+    "milestone": "m27",
+    "description": "Replacing collaborators with mocks and stubs, verifying interactions and keeping unit tests isolated.",
+    "objectives": [
+      "Create mocks and stub return values",
+      "Verify interactions",
+      "Inject mocks into the class under test"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 65,
+    "depth": "core",
+    "prerequisites": [
+      "junit",
+      "interfaces"
+    ],
+    "relatedTopics": [
+      "dependency-injection"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 73
+  },
+  {
+    "id": "rest-assured",
+    "title": "REST Assured",
+    "sourceLabel": "REST Assured",
+    "group": "testing",
+    "cluster": "Integration Testing",
+    "phase": "p4",
+    "milestone": "m27",
+    "description": "A fluent DSL for testing REST APIs: requests, response assertions and JSON/XML validation.",
+    "objectives": [
+      "Send requests and assert on responses",
+      "Validate JSON bodies",
+      "Share request specifications across tests"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 55,
+    "depth": "core",
+    "prerequisites": [
+      "junit",
+      "networking"
+    ],
+    "relatedTopics": [
+      "spring-boot",
+      "jmeter"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 74
+  },
+  {
+    "id": "jmeter",
+    "title": "JMeter",
+    "sourceLabel": "JMeter",
+    "group": "testing",
+    "cluster": "Integration Testing",
+    "phase": "p4",
+    "milestone": "m27",
+    "description": "Load and performance testing: test plans, thread groups, samplers, listeners and result analysis.",
+    "objectives": [
+      "Build a basic test plan",
+      "Interpret throughput and latency results",
+      "Explain what load tests do and do not prove"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 40,
+    "depth": "survey",
+    "prerequisites": [
+      "networking"
+    ],
+    "relatedTopics": [
+      "rest-assured"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 75
+  },
+  {
+    "id": "cucumber-jvm",
+    "title": "Cucumber-JVM",
+    "sourceLabel": "Cucumber-JVM",
+    "group": "testing",
+    "cluster": "Behavior Testing",
+    "phase": "p4",
+    "milestone": "m27",
+    "description": "Behavior-driven tests: Gherkin features, step definitions and living documentation.",
+    "objectives": [
+      "Write a Gherkin feature",
+      "Implement step definitions",
+      "Explain how BDD differs from unit testing"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 55,
+    "depth": "core",
+    "prerequisites": [
+      "junit",
+      "annotations"
+    ],
+    "relatedTopics": [
+      "rest-assured"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 76
+  },
+  {
+    "id": "slf4j",
+    "title": "SLF4J",
+    "sourceLabel": "SLF4J",
+    "group": "logging",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m28",
+    "description": "A logging facade: logger API, parameterized messages, levels, MDC and binding to an implementation.",
+    "objectives": [
+      "Log with parameterized messages at the right level",
+      "Explain facade versus implementation",
+      "Log exceptions with stack traces"
+    ],
+    "subtopics": [],
+    "difficulty": "easy",
+    "estimatedMinutes": 45,
+    "depth": "core",
+    "prerequisites": [
+      "interfaces",
+      "exception-handling"
+    ],
+    "relatedTopics": [
+      "logback",
+      "log4j2"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 77
+  },
+  {
+    "id": "logback",
+    "title": "Logback",
+    "sourceLabel": "Logback",
+    "group": "logging",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m28",
+    "description": "Native SLF4J implementation configured by logback.xml: appenders, encoders, levels and rolling files.",
+    "objectives": [
+      "Configure console and file appenders",
+      "Set per-package log levels",
+      "Configure rolling policies"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 55,
+    "depth": "core",
+    "prerequisites": [
+      "slf4j"
+    ],
+    "relatedTopics": [
+      "log4j2"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 78
+  },
+  {
+    "id": "log4j2",
+    "title": "Log4j2",
+    "sourceLabel": "Log4j2",
+    "group": "logging",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m28",
+    "description": "Apache logging framework with appenders, layouts, asynchronous loggers and multiple configuration formats.",
+    "objectives": [
+      "Configure appenders and layouts",
+      "Use asynchronous logging",
+      "Bridge SLF4J to Log4j2"
+    ],
+    "subtopics": [],
+    "difficulty": "medium",
+    "estimatedMinutes": 55,
+    "depth": "core",
+    "prerequisites": [
+      "slf4j"
+    ],
+    "relatedTopics": [
+      "logback"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 79
+  },
+  {
+    "id": "tinylog",
+    "title": "TinyLog",
+    "sourceLabel": "TinyLog",
+    "group": "logging",
+    "cluster": null,
+    "phase": "p4",
+    "milestone": "m28",
+    "description": "Minimalistic logging with a static API and simple properties-based configuration.",
+    "objectives": [
+      "Log with the static API",
+      "Configure writers via properties",
+      "Compare TinyLog with Logback and Log4j2"
+    ],
+    "subtopics": [],
+    "difficulty": "easy",
+    "estimatedMinutes": 30,
+    "depth": "survey",
+    "prerequisites": [
+      "exception-handling"
+    ],
+    "relatedTopics": [
+      "slf4j",
+      "logback"
+    ],
+    "examples": [],
+    "exercises": [],
+    "quizIds": [],
+    "resources": [],
+    "contentStatus": "outline",
+    "order": 80
+  }
+]
