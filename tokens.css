@@ -1,0 +1,79 @@
+/* Design tokens. Two themes built from one palette (brief: primary #2196F3, secondary #4647AE, text #112E81).
+   Brand values are used for fills, rings and strokes. Where a brand value fails WCAG AA as text, the *-text / --c-accent
+   variants below are the same hue adjusted for legibility (see docs/design-system.md). */
+:root {
+  /* type: semantic tokens. Families come from Google Fonts (next/font/google in the Next app exposes the --next-* variables; the preview page links the same families). */
+  --font-display: var(--next-dm-serif), "DM Serif Display", "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-body: var(--next-dm-sans), "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--next-jetbrains), "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  --font-sans: var(--font-body);
+  --fw-regular: 400; --fw-medium: 500; --fw-semi: 600;
+  --fs-2xs: 0.6875rem; --fs-xs: 0.75rem; --fs-sm: 0.8125rem; --fs-md: 0.9375rem; --fs-lg: 1.0625rem; --fs-xl: 1.5rem; --fs-2xl: 2rem;
+  --fs-display: clamp(2rem, 1.4rem + 1.6vw, 3rem);
+  --lh-tight: 1.15; --lh-snug: 1.35; --lh-body: 1.6; --track-tight: -0.01em; --track-caps: 0.09em;
+
+  /* space (4px base), shape */
+  --s-1: 0.25rem; --s-2: 0.5rem; --s-3: 0.75rem; --s-4: 1rem; --s-5: 1.25rem; --s-6: 1.5rem; --s-8: 2rem; --s-10: 2.5rem; --s-12: 3rem;
+  --r-xs: 4px; --r-sm: 8px; --r-md: 12px; --r-lg: 16px; --r-xl: 22px; --r-pill: 999px; --bw: 1px;
+
+  /* brand constants (identical in both themes) */
+  --c-primary: #2196F3; --c-on-primary: #04122E;
+  --c-secondary: #4647AE; --c-on-secondary: #FFFFFF;
+  --c-success: #2E7D32; --c-warning: #ED6C02; --c-error: #D32F2F;
+
+  /* motion */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-spring: linear(0, 0.18 5%, 0.55 11%, 0.86 17%, 1.04 23%, 1.08 28%, 1.05 34%, 1.01 42%, 0.99 52%, 1 66%, 1);
+  --dur-1: 110ms; --dur-2: 200ms; --dur-3: 340ms; --dur-4: 560ms;
+  --lift: -2px;
+
+  /* layout */
+  --topbar-h: 3.5rem; --nav-w: 18.5rem; --panel-w: clamp(26rem, 34vw, 35rem); --tap: 2.75rem;
+  --z-sticky: 10; --z-drawer: 40; --z-pop: 50; --z-toast: 60;
+}
+
+:root, :root[data-theme="dark"] {
+  color-scheme: dark;
+  --c-bg: #0A1024; --c-bg-raised: #0E1630; --c-surface: #131E40; --c-surface-2: #1A2753; --c-surface-3: #233269;
+  --c-line: rgba(150, 185, 255, 0.13); --c-line-strong: rgba(150, 185, 255, 0.26); --c-scrim: rgba(4, 8, 20, 0.62);
+  --c-text: #E9F0FF; --c-text-2: #B7C6EC; --c-text-3: #93A8DE;
+  --c-accent: #5DB4FF; --c-accent-strong: #8CCBFF; --c-accent-ink: var(--c-on-primary);
+  --c-accent-soft: rgba(33, 150, 243, 0.16); --c-accent-line: rgba(93, 180, 255, 0.5);
+  --c-secondary-text: #A5A6F5; --c-secondary-soft: rgba(110, 112, 230, 0.2);
+  --c-ok: #7ED493; --c-ok-soft: rgba(126, 212, 147, 0.14);
+  --c-warn: #FFA34D; --c-warn-soft: rgba(255, 163, 77, 0.14);
+  --c-danger: #FF8A84; --c-danger-soft: rgba(255, 138, 132, 0.14);
+  --c-phase-1: #6FB7F7; --c-phase-2: #A5A6F5; --c-phase-3: #6FD1C7; --c-phase-4: #D69BE6;
+  --glass-bg: rgba(19, 30, 64, 0.58); --glass-bg-strong: rgba(26, 39, 83, 0.78); --glass-border: rgba(150, 185, 255, 0.18); --glass-hi: rgba(255, 255, 255, 0.07); --glass-blur: 14px;
+  --shadow-1: 0 1px 0 var(--glass-hi) inset, 0 8px 22px -12px rgba(2, 6, 18, 0.8);
+  --shadow-2: 0 1px 0 var(--glass-hi) inset, 0 22px 48px -20px rgba(2, 6, 18, 0.9);
+  --glow: 0 0 0 1px rgba(33, 150, 243, 0.55), 0 0 22px -2px rgba(33, 150, 243, 0.34);
+  --ring: 0 0 0 2px var(--c-bg), 0 0 0 4px var(--c-accent-strong);
+  --c-code-bg: #08102A; --c-code-kw: #7FC0FF; --c-code-type: #A5A6F5; --c-code-fn: #E9F0FF; --c-code-str: #86DBA0; --c-code-num: #FFB86B; --c-code-com: #8CA2D8; --c-code-ann: #E3A3EE; --c-code-hl: rgba(33, 150, 243, 0.2);
+  --atmos-1: rgba(33, 120, 255, 0.2); --atmos-2: rgba(110, 112, 230, 0.18); --atmos-3: rgba(40, 190, 220, 0.1);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --c-bg: #FFFFFF; --c-bg-raised: #F4F9FE; --c-surface: #E3F2FD; --c-surface-2: #D4EAFB; --c-surface-3: #C3E0F8;
+  --c-line: rgba(17, 46, 129, 0.12); --c-line-strong: #AACCD6; --c-scrim: rgba(17, 46, 129, 0.32);
+  --c-text: #112E81; --c-text-2: #274A9F; --c-text-3: #2A58AA;
+  --c-accent: #0B63B5; --c-accent-strong: #084A8C; --c-accent-ink: var(--c-on-primary);
+  --c-accent-soft: rgba(33, 150, 243, 0.14); --c-accent-line: rgba(11, 99, 181, 0.5);
+  --c-secondary-text: #4647AE; --c-secondary-soft: rgba(70, 71, 174, 0.12);
+  --c-ok: #2A7230; --c-ok-soft: rgba(46, 125, 50, 0.12);
+  --c-warn: #9A4300; --c-warn-soft: rgba(237, 108, 2, 0.14);
+  --c-danger: #BF2A2A; --c-danger-soft: rgba(211, 47, 47, 0.1);
+  --c-phase-1: #1565B8; --c-phase-2: #4647AE; --c-phase-3: #0B6E69; --c-phase-4: #7B3FA0;
+  --glass-bg: rgba(255, 255, 255, 0.62); --glass-bg-strong: rgba(255, 255, 255, 0.86); --glass-border: rgba(70, 120, 200, 0.24); --glass-hi: rgba(255, 255, 255, 0.9); --glass-blur: 14px;
+  --shadow-1: 0 1px 0 var(--glass-hi) inset, 0 8px 22px -14px rgba(17, 46, 129, 0.28);
+  --shadow-2: 0 1px 0 var(--glass-hi) inset, 0 22px 48px -22px rgba(17, 46, 129, 0.34);
+  --glow: 0 0 0 1px rgba(33, 150, 243, 0.6), 0 0 20px -2px rgba(33, 150, 243, 0.28);
+  --ring: 0 0 0 2px var(--c-bg), 0 0 0 4px var(--c-accent);
+  --c-code-bg: #F1F7FE; --c-code-kw: #0B63B5; --c-code-type: #4647AE; --c-code-fn: #112E81; --c-code-str: #1F6B2A; --c-code-num: #A04400; --c-code-com: #3F5FA6; --c-code-ann: #8A3BA3; --c-code-hl: rgba(33, 150, 243, 0.16);
+  --atmos-1: rgba(120, 190, 255, 0.34); --atmos-2: rgba(160, 160, 240, 0.22); --atmos-3: rgba(255, 214, 190, 0.26);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-1: 0.01ms; --dur-2: 0.01ms; --dur-3: 0.01ms; --dur-4: 0.01ms; --lift: 0px; }
+}
